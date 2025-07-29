@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noteify</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(-45deg, #f9f9f9, #e3f2fd, #e8f5e9, #fff3e0);
+      background-size: 400% 400%;
+      animation: gradientShift 10s ease infinite;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #1e3a8a;
+      margin-bottom: 0.2em;
+    }
+
+    p {
+      color: #555;
+      font-size: 1.1em;
+    }
+
+    .year-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      gap: 20px;
+    }
+
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1e40af;
+      transform: translateY(-3px);
+    }
+
+    .divider {
+      width: 80%;
+      height: 1px;
+      background-color: #ccc;
+      margin: 30px auto 0;
+      opacity: 0.5;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .submenu {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .submenu a {
+      color: #1e3a8a;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: #e0ecff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .submenu a:hover {
+      background-color: #c7ddff;
+    }
+
+    footer {
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 15px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #333;
+      border-top: 1px solid #ccc;
+      line-height: 1.6em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Noteify</h1>
+    <p>The one-stop destination for all your academic needs.</p>
+  </header>
+
+  <div class="content">
+    <div class="year-buttons">
+      <button onclick="showSubmenu('year1')">1st Year</button>
+      <button onclick="showSubmenu('year2')">2nd Year</button>
+      <button onclick="showSubmenu('year3')">3rd Year</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div id="year1" class="submenu">
+      <a href="https://drive.google.com/drive/folders/1ybhITsJrmKm5FhapAhSsIosBAaKsygVU?usp=sharing" target="_blank">📘 Notes</a>
+      <a href="https://drive.google.com/drive/folders/1-FVsqdNaqpI7Gtw4wYsWiyImaB_bBAWS?usp=sharing" target="_blank">📄 Question Papers</a>
+      <a href="https://drive.google.com/drive/folders/1b-uUnv-qGxSeLWOCHynW7vH3rw3vIfWG?usp=sharing" target="_blank">📚 Textbooks</a>
+    </div>
+
+    <div id="year2" class="submenu">
+      <a href="https://drive.google.com/drive/folders/1tiliOH7MNyk-ex4cRlHXeC7Fkk9Ih4wX?usp=sharing" target="_blank">📘 Notes</a>
+      <a href="https://drive.google.com/drive/folders/1_7C6rkF9aCVqO3PgVp0n5tJYoNfq7M0b?usp=sharing" target="_blank">📄 Question Papers</a>
+      <a href="https://drive.google.com/drive/folders/1B5LTxLkjo0WojqAyQ4jHHKpBOvyKkw86?usp=sharing" target="_blank">📚 Textbooks</a>
+    </div>
+
+    <div id="year3" class="submenu">
+      <a href="https://drive.google.com/drive/folders/1eO_aFyfotJuVas6lO6-Hrj36loOaKJ3-?usp=sharing" target="_blank">📘 Notes</a>
+      <a href="https://drive.google.com/drive/folders/1LQXfMtTQ85i57kE6hVfUfT7UzaWxrv47?usp=sharing" target="_blank">📄 Question Papers</a>
+      <a href="https://drive.google.com/drive/folders/1fSQHTnSXUgf8j5I6EmbheRCRdw7z9-Jg?usp=sharing" target="_blank">📚 Textbooks</a>
+    </div>
+  </div>
+
+  <footer>
+    Made with ❤️ by Subhayu<br />
+    Contact: +91 9435147190 | 23bad10022@cuchd.in
+  </footer>
+
+  <script>
+    function showSubmenu(id) {
+      const submenus = document.querySelectorAll('.submenu');
+      submenus.forEach(menu => menu.style.display = 'none');
+      document.getElementById(id).style.display = 'flex';
+    }
+  </script>
+</body>
+</html>
