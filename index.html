@@ -58,8 +58,14 @@
     }
 
     button:hover {
-      background-color: #1e40af;
       transform: translateY(-3px);
+    }
+
+    .gate-btn {
+      background-color: #3b82f6; /* slightly different blue */
+    }
+    .gate-btn:hover {
+      background-color: #1e40af;
     }
 
     .divider {
@@ -115,6 +121,7 @@
   <header>
     <h1>Noteify</h1>
     <p>The one-stop destination for all your academic needs.</p>
+    <p>Visitors: <span id="visitor-count">0</span></p>
   </header>
 
   <div class="content">
@@ -122,6 +129,7 @@
       <button onclick="showSubmenu('year1')">1st Year</button>
       <button onclick="showSubmenu('year2')">2nd Year</button>
       <button onclick="showSubmenu('year3')">3rd Year</button>
+      <button class="gate-btn" onclick="showSubmenu('gate2026')">GATE 2026</button>
     </div>
 
     <div class="divider"></div>
@@ -143,6 +151,11 @@
       <a href="https://drive.google.com/drive/folders/1LQXfMtTQ85i57kE6hVfUfT7UzaWxrv47?usp=sharing" target="_blank">📄 Question Papers</a>
       <a href="https://drive.google.com/drive/folders/1fSQHTnSXUgf8j5I6EmbheRCRdw7z9-Jg?usp=sharing" target="_blank">📚 Textbooks</a>
     </div>
+
+    <div id="gate2026" class="submenu">
+      <a href="https://drive.google.com/drive/folders/1m65FnZnqW0HabLzi7yW9Rdlt6WHM9uXg?usp=sharing" target="_blank">📘 Notes</a>
+      <a href="https://drive.google.com/drive/folders/1nQ08QsWG-VTg8XlwlCTN-TMhHKsnYtCJ?usp=sharing" target="_blank">📄 Worksheets</a>
+    </div>
   </div>
 
   <footer>
@@ -156,6 +169,14 @@
       submenus.forEach(menu => menu.style.display = 'none');
       document.getElementById(id).style.display = 'flex';
     }
+
+    // CountAPI visitor counter
+    fetch('https://api.countapi.xyz/hit/noteify-homepage/visits')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('visitor-count').innerText = data.value;
+      })
+      .catch(err => console.log('Counter error:', err));
   </script>
 </body>
 </html>
