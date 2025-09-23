@@ -38,6 +38,16 @@
       font-size: 1.1em;
     }
 
+    .visitor-box {
+      display: inline-block;
+      background-color: #e0ecff;
+      color: #1e3a8a;
+      padding: 5px 12px;
+      border-radius: 12px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
     .year-buttons {
       display: flex;
       justify-content: center;
@@ -121,7 +131,9 @@
   <header>
     <h1>Noteify</h1>
     <p>The one-stop destination for all your academic needs.</p>
-    <p>Visitors: <span id="visitor-count">0</span></p>
+    <div class="visitor-box">
+      Visitors: <span id="visitor-count">0</span>
+    </div>
   </header>
 
   <div class="content">
@@ -170,13 +182,13 @@
       document.getElementById(id).style.display = 'flex';
     }
 
-    // CountAPI visitor counter
-    fetch('https://api.countapi.xyz/hit/noteify-homepage/visits')
+    // CountAPI visitor counter using namespace Subhayu18
+    fetch('https://api.countapi.xyz/hit/Subhayu18/visits')
       .then(res => res.json())
       .then(data => {
         document.getElementById('visitor-count').innerText = data.value;
       })
-      .catch(err => console.log('Counter error:', err));
+      .catch(err => console.error('Counter error:', err));
   </script>
 </body>
 </html>
