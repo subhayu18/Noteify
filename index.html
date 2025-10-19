@@ -4,171 +4,214 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Noteify</title>
-<style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(-45deg, #f9f9f9, #e3f2fd, #e8f5e9, #fff3e0);
-    background-size: 400% 400%;
-    animation: gradientShift 10s ease infinite;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
 
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
+  <!-- 🌟 Favicon -->
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2991/2991115.png" />
 
-  header {
-    text-align: center;
-    padding: 40px 20px 20px;
-  }
+  <style>
+    /* ========== Global & Background ========== */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(-45deg, #f9f9f9, #e3f2fd, #e8f5e9, #fff3e0);
+      background-size: 400% 400%;
+      animation: gradientShift 10s ease infinite;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards;
+    }
 
-  h1 {
-    font-size: 3em;
-    color: #1e3a8a;
-    margin-bottom: 0.2em;
-  }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-  p {
-    color: #555;
-    font-size: 1.1em;
-  }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-  .year-buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 40px;
-    gap: 20px;
-  }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(8px);
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      animation: slideInDown 1.3s ease;
+    }
 
-  button {
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1em;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.3s ease;
-  }
+    @keyframes slideInDown {
+      0% { transform: translateY(-30px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
 
-  button:hover {
-    transform: translateY(-3px);
-  }
+    h1 {
+      font-size: 3em;
+      color: #1e3a8a;
+      margin-bottom: 0.2em;
+      animation: pulse 3s infinite ease-in-out;
+    }
 
-  .gate-btn {
-    background-color: #3b82f6; /* slightly different blue */
-  }
-  .gate-btn:hover {
-    background-color: #1e40af;
-  }
+    /* ❤️ subtle header animation */
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 0px #1e3a8a; }
+      50% { text-shadow: 0 0 8px rgba(30, 58, 138, 0.3); }
+    }
 
-  .divider {
-    width: 80%;
-    height: 1px;
-    background-color: #ccc;
-    margin: 30px auto 0;
-    opacity: 0.5;
-  }
+    p {
+      color: #555;
+      font-size: 1.1em;
+      min-height: 1.5em;
+    }
 
-  .content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    .year-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      gap: 20px;
+      animation: fadeIn 1.5s ease forwards;
+    }
 
-  .submenu {
-    display: none;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 20px;
-  }
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
 
-  .submenu a {
-    color: #1e3a8a;
-    text-decoration: none;
-    font-weight: bold;
-    background-color: #e0ecff;
-    padding: 10px 20px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+    button:hover {
+      transform: translateY(-3px);
+    }
 
-  .submenu a:hover {
-    background-color: #c7ddff;
-  }
+    .gate-btn {
+      background-color: #3b82f6;
+    }
 
-  footer {
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 15px;
-    text-align: center;
-    font-size: 0.9em;
-    color: #333;
-    line-height: 1.6em;
-  }
+    .gate-btn:hover {
+      background-color: #1e40af;
+    }
 
-  /* =========================
-     🌐 Contact Buttons + Counter Styles
-     ========================= */
-  .contact-btn {
-    display: inline-block;
-    margin: 5px 10px;
-    padding: 10px 18px;
-    border-radius: 6px;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
+    .divider {
+      width: 80%;
+      height: 1px;
+      background-color: #ccc;
+      margin: 30px auto 0;
+      opacity: 0.5;
+    }
 
-  .contact-btn:hover {
-    transform: translateY(-2px);
-  }
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-  .whatsapp {
-    background-color: #25D366;
-  }
+    .submenu {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+      animation: fadeIn 0.5s ease;
+    }
 
-  .whatsapp:hover {
-    background-color: #1ebe5c;
-  }
+    .submenu a {
+      color: #1e3a8a;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: #e0ecff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.3s, transform 0.2s;
+    }
 
-  .email {
-    background-color: #1e88e5;
-  }
+    .submenu a:hover {
+      background-color: #c7ddff;
+      transform: translateY(-2px);
+    }
 
-  .email:hover {
-    background-color: #1565c0;
-  }
+    footer {
+      background-color: rgba(255, 255, 255, 0.75);
+      padding: 15px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #333;
+      line-height: 1.6em;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    }
 
-  footer p {
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 6px;
-  }
+    /* Contact Buttons */
+    .contact-btn {
+      display: inline-block;
+      margin: 5px 10px;
+      padding: 10px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
 
-  /* Optional: center counter + buttons neatly */
-  #sfckm3bhtx7n2gwqknjada522tkmlnld67e {
-    margin: 8px auto;
-  }
+    .contact-btn:hover {
+      transform: translateY(-2px);
+    }
 
-  .contact-btn-container {
-    margin-top: 10px;
-  }
-</style>
+    .whatsapp {
+      background-color: #25D366;
+    }
+
+    .whatsapp:hover {
+      background-color: #1ebe5c;
+    }
+
+    .email {
+      background-color: #1e88e5;
+    }
+
+    .email:hover {
+      background-color: #1565c0;
+    }
+
+    footer p {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    /* Counter placement */
+    #sfckm3bhtx7n2gwqknjada522tkmlnld67e {
+      margin: 8px auto;
+    }
+
+    /* ❤️ Heart Animation */
+    .heart {
+      display: inline-block;
+      color: red;
+      animation: beat 1.5s infinite;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+  </style>
 </head>
 <body>
   <header>
     <h1>Noteify</h1>
-    <p>The one-stop destination for all your academic needs.</p>
+    <p id="typing-text"></p>
   </header>
 
   <div class="content">
@@ -206,10 +249,8 @@
   </div>
 
   <footer>
-    Made with ❤️ by Subhayu<br />
-    <br><br>
-  
-    <!-- 🌍 Visitor Counter -->
+    Made with <span class="heart">❤️</span> by Subhayu<br /><br>
+
     <p>🌍 People who’ve visited Noteify:</p>
     <div id="sfckm3bhtx7n2gwqknjada522tkmlnld67e"></div>
     <script type="text/javascript" src="https://counter1.optistats.ovh/private/counter.js?c=km3bhtx7n2gwqknjada522tkmlnld67e&down=async" async></script>
@@ -218,25 +259,53 @@
         <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=km3bhtx7n2gwqknjada522tkmlnld67e" border="0" title="free web counter" alt="free web counter">
       </a>
     </noscript>
-
     <br><br>
-
-    <!-- 📞 Quick Contact Buttons -->
     <a href="https://wa.me/919435147190" target="_blank" class="contact-btn whatsapp">💬 WhatsApp</a>
     <a href="mailto:23bad10022@cuchd.in" target="_blank" class="contact-btn email">✉️ Email</a>
   </footer>
 
-
   <script>
+    // Toggle Submenus
     function showSubmenu(id) {
       const submenus = document.querySelectorAll('.submenu');
       submenus.forEach(menu => menu.style.display = 'none');
       document.getElementById(id).style.display = 'flex';
     }
+
+    // Typing Animation
+    const textElement = document.getElementById("typing-text");
+    const textArray = [
+      "The one-stop destination for all your academic needs.",
+      "Notes. Papers. Textbooks. Sorted.",
+      "Study smart with Noteify."
+    ];
+    let textIndex = 0;
+    let charIndex = 0;
+
+    function type() {
+      if (charIndex < textArray[textIndex].length) {
+        textElement.textContent += textArray[textIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, 60);
+      } else {
+        setTimeout(erase, 1500);
+      }
+    }
+
+    function erase() {
+      if (charIndex > 0) {
+        textElement.textContent = textArray[textIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, 40);
+      } else {
+        textIndex = (textIndex + 1) % textArray.length;
+        setTimeout(type, 400);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(type, 500);
+    });
   </script>
 </body>
 </html>
-
-
-
-
