@@ -1,335 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Noteify</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#131126" />
+    <title>Noteify — Study, simply</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="backdrop"></div>
+    <main class="shell">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="nav-logo" href="#top" aria-label="Noteify home">
+          <span class="nav-logo-row" aria-hidden="true"><span class="nav-noteify"><span>N</span><span>O</span><span>T</span><span>E</span><span>I</span><span>F</span><span>Y</span></span><span class="nav-logo-label">Chandigarh University Exclusive Material</span></span>
+        </a>
+        <div class="nav-links">
+          <button class="weather-pill" id="weatherButton" type="button" title="Using Chandigarh University, Mohali as the fallback weather location" aria-label="Current weather"><span class="weather-icon">◌</span><span class="weather-reading">Loading weather</span></button>
+          <a href="#library">Library</a>
+          <a href="#about">About</a>
+        </div>
+      </nav>
 
-<meta name="description" content="One-stop destination for engineering notes, PYQs, textbooks, AMCAT preparation and GATE 2027 resources.">
-<meta name="keywords" content="engineering notes, PYQs, textbooks, GATE 2027, AMCAT, Noteify">
-<meta name="author" content="Subhayu Mukherjee">
+      <section class="hero" id="top">
+        <p class="eyebrow"><span></span> Your academic companion</p>
+        <h1>Make room for<br /><em>brilliant ideas.</em></h1>
+        <p class="hero-copy">Notes, past papers, textbooks and practice resources — thoughtfully organized for every chapter of your engineering journey.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#library">Explore resources <span>↓</span></a>
+          <a class="button button-quiet" href="#about">How it works <span>↗</span></a>
+        </div>
+        <div class="stats" aria-label="Site statistics">
+          <div><strong>01 — 04</strong><span>Years covered</span></div>
+          <div><strong>24 / 7</strong><span>Ready when you are</span></div>
+          <div><strong>∞</strong><span>Potential unlocked</span></div>
+        </div>
+      </section>
 
-<link rel="icon" type="image/png" href="favicon.png">
+      <section class="library-section" id="library">
+        <div class="section-heading">
+          <div><p class="eyebrow"><span></span> Resource library</p><h2>Find your next focus.</h2></div>
+          <label class="search"><span>⌕</span><input id="resourceSearch" type="search" placeholder="Search a topic or subject" aria-label="Search resources" /></label>
+        </div>
+        <div class="year-tabs" role="tablist" aria-label="Academic year">
+          <button class="year-tab active" data-year="1" role="tab" aria-selected="true">First year</button>
+          <button class="year-tab" data-year="2" role="tab" aria-selected="false">Second year</button>
+          <button class="year-tab" data-year="3" role="tab" aria-selected="false">Third year</button>
+          <button class="year-tab" data-year="4" role="tab" aria-selected="false">Final year</button>
+          <button class="year-tab" data-year="exam" role="tab" aria-selected="false">Exam prep</button>
+        </div>
+        <div class="resource-grid" id="resourceGrid"></div>
+      </section>
 
-<style>
-:root{
-  --primary:#2563eb;
-  --primary-dark:#1e40af;
-  --card-bg:rgba(255,255,255,0.72);
-  --text:#1f2937;
-  --muted:#6b7280;
-  --shadow:0 10px 30px rgba(0,0,0,.12);
-}
+      <section class="about" id="about">
+        <div class="about-symbol">✦</div>
+        <div><p class="eyebrow"><span></span> Made for momentum</p><h2>Less searching.<br />More learning.</h2></div>
+        <p>Noteify brings the material you need into one quiet, focused space. Pick a year, choose a subject, and get back to making progress.</p>
+        <a class="text-link" href="#library">Start exploring <span>→</span></a>
+      </section>
 
-.dark{
-  --card-bg:rgba(17,24,39,.75);
-  --text:#f3f4f6;
-  --muted:#d1d5db;
-  --shadow:0 10px 30px rgba(0,0,0,.35);
-}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-
-body{
-  margin:0;
-  min-height:100vh;
-  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-  color:var(--text);
-  background:linear-gradient(-45deg,#f9fafb,#dbeafe,#dcfce7,#ffedd5);
-  background-size:400% 400%;
-  animation:gradientShift 12s ease infinite;
-  display:flex;
-  flex-direction:column;
-  transition:.3s;
-}
-
-.dark body,
-body.dark{
-  background:linear-gradient(-45deg,#0f172a,#111827,#1e293b,#172554);
-}
-
-@keyframes gradientShift{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
-header{
-  text-align:center;
-  padding:40px 20px 20px;
-  position:relative;
-  animation:fadeIn 1s ease;
-}
-
-h1{
-  font-size:3.3rem;
-  margin:0;
-  color:#1e3a8a;
-}
-
-.dark h1{color:#93c5fd}
-
-.subtitle{
-  margin-top:10px;
-  color:var(--muted);
-  font-size:1rem;
-}
-
-.typing{
-  margin-top:12px;
-  height:30px;
-  display:inline-block;
-  border-right:2px solid currentColor;
-  white-space:nowrap;
-  overflow:hidden;
-}
-
-.top-actions{
-  position:absolute;
-  top:20px;
-  right:20px;
-  display:flex;
-  gap:10px;
-}
-
-.action-btn{
-  border:none;
-  padding:10px 16px;
-  border-radius:10px;
-  cursor:pointer;
-  background:#f59e0b;
-  color:white;
-  font-weight:600;
-}
-
-.theme-btn{
-  background:#111827;
-}
-
-.content{
-  flex:1;
-  width:min(1100px,92%);
-  margin:auto;
-}
-
-.year-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:12px;
-  margin:20px 0 30px;
-}
-
-.year-buttons button{
-  border:none;
-  padding:14px 24px;
-  border-radius:12px;
-  cursor:pointer;
-  background:var(--primary);
-  color:white;
-  font-weight:600;
-  transition:.25s;
-}
-
-.year-buttons button:hover{
-  transform:translateY(-3px);
-}
-
-.year-buttons button.active{
-  background:var(--primary-dark);
-}
-
-.resource-card{
-  background:var(--card-bg);
-  backdrop-filter:blur(12px);
-  border-radius:20px;
-  padding:25px;
-  box-shadow:var(--shadow);
-  min-height:220px;
-}
-
-.submenu{
-  display:none;
-  flex-direction:column;
-  gap:14px;
-  animation:fadeIn .35s ease;
-}
-
-.submenu a{
-  text-decoration:none;
-  color:#1e3a8a;
-  background:#e0ecff;
-  padding:14px 18px;
-  border-radius:12px;
-  font-weight:700;
-  transition:.25s;
-}
-
-.dark .submenu a{
-  color:white;
-  background:#1e3a8a;
-}
-
-.submenu a:hover{
-  transform:translateX(6px);
-}
-
-footer{
-  margin-top:40px;
-  background:rgba(255,255,255,.7);
-  backdrop-filter:blur(10px);
-  padding:24px;
-  text-align:center;
-}
-
-.dark footer{
-  background:rgba(17,24,39,.75);
-}
-
-.community-btn{
-  display:block;
-  max-width:500px;
-  margin:15px auto;
-  text-decoration:none;
-  background:#16a34a;
-  color:white;
-  padding:15px;
-  border-radius:12px;
-  font-weight:700;
-}
-
-.contact-btn{
-  display:inline-block;
-  text-decoration:none;
-  color:white;
-  padding:10px 18px;
-  border-radius:10px;
-  margin:5px;
-  font-weight:600;
-}
-
-.whatsapp{background:#25D366}
-.email{background:#1e88e5}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-@media(max-width:768px){
-  h1{font-size:2.5rem}
-  .top-actions{
-    position:static;
-    justify-content:center;
-    margin-top:15px;
-  }
-}
-</style>
-</head>
-<body>
-
-<header>
-<h1>Noteify</h1>
-<div class="subtitle">Your complete engineering resource hub.</div>
-<div class="typing"></div>
-
-<div class="top-actions">
-<button class="action-btn theme-btn" onclick="toggleTheme()">🌙</button>
-<button class="action-btn" onclick="window.open('https://6841c35529ac433f5a2b03ce--statuesque-dragon-7a18c8.netlify.app/','_blank')">About Me</button>
-</div>
-</header>
-
-<div class="content">
-
-<div class="year-buttons">
-<button onclick="showSubmenu('year1',this)">1st Year</button>
-<button onclick="showSubmenu('year2',this)">2nd Year</button>
-<button onclick="showSubmenu('year3',this)">3rd Year</button>
-<button onclick="showSubmenu('year4',this)">4th Year</button>
-<button onclick="showSubmenu('amcat',this)">AMCAT</button>
-<button onclick="showSubmenu('gate2027',this)">GATE 2027</button>
-</div>
-
-<div class="resource-card">
-
-<div id="year1" class="submenu">
-<a href="https://drive.google.com/drive/folders/1ybhITsJrmKm5FhapAhSsIosBAaKsygVU?usp=sharing" target="_blank" rel="noopener noreferrer">📘 Notes</a>
-<a href="https://drive.google.com/drive/folders/1-FVsqdNaqpI7Gtw4wYsWiyImaB_bBAWS?usp=sharing" target="_blank" rel="noopener noreferrer">📝 PYQs</a>
-<a href="https://drive.google.com/drive/folders/1b-uUnv-qGxSeLWOCHynW7vH3rw3vIfWG?usp=sharing" target="_blank" rel="noopener noreferrer">📚 Textbooks</a>
-</div>
-
-<div id="year2" class="submenu">
-<a href="https://drive.google.com/drive/folders/1tiliOH7MNyk-ex4cRlHXeC7Fkk9Ih4wX?usp=sharing" target="_blank">📘 Notes</a>
-<a href="https://drive.google.com/drive/folders/1_7C6rkF9aCVqO3PgVp0n5tJYoNfq7M0b?usp=sharing" target="_blank">📝 PYQs</a>
-<a href="https://drive.google.com/drive/folders/1B5LTxLkjo0WojqAyQ4jHHKpBOvyKkw86?usp=sharing" target="_blank">📚 Textbooks</a>
-</div>
-
-<div id="year3" class="submenu">
-<a href="https://drive.google.com/drive/folders/1eO_aFyfotJuVas6lO6-Hrj36loOaKJ3-?usp=sharing" target="_blank">📘 Notes</a>
-<a href="https://drive.google.com/drive/folders/1LQXfMtTQ85i57kE6hVfUfT7UzaWxrv47?usp=sharing" target="_blank">📝 PYQs</a>
-<a href="https://drive.google.com/drive/folders/1fSQHTnSXUgf8j5I6EmbheRCRdw7z9-Jg?usp=sharing" target="_blank">📚 Textbooks</a>
-</div>
-
-<div id="year4" class="submenu">
-<a href="https://drive.google.com/drive/folders/1QkovywX2P1Uq2xhsuC8O-G-e0p6bL-AU?usp=sharing" target="_blank">📘 Notes</a>
-<a href="https://drive.google.com/drive/folders/1_w3MzGH1u55Y08OEjFUibw05ydvIaDvO?usp=sharing" target="_blank">📝 PYQs</a>
-<a href="https://drive.google.com/drive/folders/1atjfUizMpfzRCzhLXBfejiec63t58BnW?usp=sharing" target="_blank">📚 Textbooks</a>
-</div>
-
-<div id="amcat" class="submenu">
-<a href="https://drive.google.com/drive/folders/1H-QktN_i2edww_UFWzmrPzqjCNseUsoO?usp=sharing" target="_blank">📘 Notes</a>
-<a href="https://drive.google.com/drive/folders/1H-QktN_i2edww_UFWzmrPzqjCNseUsoO?usp=sharing" target="_blank">📄 Worksheets</a>
-</div>
-
-<div id="gate2027" class="submenu">
-<a href="https://drive.google.com/drive/folders/1m65FnZnqW0HabLzi7yW9Rdlt6WHM9uXg?usp=sharing" target="_blank">📘 Notes</a>
-<a href="https://drive.google.com/drive/folders/1nQ08QsWG-VTg8XlwlCTN-TMhHKsnYtCJ?usp=sharing" target="_blank">📄 Worksheets</a>
-</div>
-
-</div>
-</div>
-
-<footer>
-<div><strong>Made with ❤️ by Subhayu</strong></div>
-
-<a href="https://chat.whatsapp.com/FBxgjXXfUEjKtUhH20FzD6" target="_blank" rel="noopener noreferrer" class="community-btn">
-🚀 Join the Live Community for Updates
-</a>
-
-<a href="https://wa.me/919435147190" target="_blank" class="contact-btn whatsapp">💬 WhatsApp</a>
-<a href="mailto:23bad10022@cuchd.in" class="contact-btn email">✉️ Email</a>
-</footer>
-
-<script>
-function showSubmenu(id,btn){
-  document.querySelectorAll('.submenu').forEach(x=>x.style.display='none');
-  document.querySelectorAll('.year-buttons button').forEach(x=>x.classList.remove('active'));
-  document.getElementById(id).style.display='flex';
-  if(btn) btn.classList.add('active');
-}
-
-const tagline="Notes • PYQs • Textbooks • AMCAT • GATE";
-const typingEl=document.querySelector('.typing');
-let i=0;
-
-(function type(){
-  if(i<tagline.length){
-    typingEl.textContent=tagline.slice(0,i+1);
-    i++;
-    setTimeout(type,55);
-  }
-})();
-
-function toggleTheme(){
-  document.body.classList.toggle('dark');
-}
-
-window.onload=()=>{
-  const first=document.querySelector('.year-buttons button');
-  showSubmenu('year1',first);
-};
-</script>
-
-</body>
+      <footer>
+        <div class="footer-signature">
+          <p class="exclusive-label">Chandigarh University Exclusive Material</p>
+          <p class="lava-noteify" aria-label="by Noteify"><span>N</span><span>O</span><span>T</span><span>E</span><span>I</span><span>F</span><span>Y</span></p>
+          <p class="byline">Created by Subhayu and Anurag Shakalya</p>
+        </div>
+        <div class="footer-links"><a href="mailto:noteifyplus@gmail.com">Support: noteifyplus@gmail.com</a><a href="#top">Back to top ↑</a></div>
+      </footer>
+    </main>
+    <dialog class="drive-preview" id="drivePreview" aria-labelledby="previewTitle">
+      <div class="preview-bar">
+        <div><p class="preview-kicker">Google Drive folder</p><h2 id="previewTitle">Resource preview</h2></div>
+        <button class="preview-close" id="previewClose" aria-label="Close preview">×</button>
+      </div>
+      <div class="preview-frame-wrap"><iframe id="previewFrame" title="Google Drive resource preview" allow="fullscreen" loading="lazy"></iframe></div>
+      <div class="preview-actions"><span>Previewing within Noteify</span><a class="button button-primary" id="openDrive" target="_blank" rel="noopener noreferrer">Open in Google Drive <span>↗</span></a></div>
+    </dialog>
+    <script src="app.js"></script>
+  </body>
 </html>
