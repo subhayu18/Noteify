@@ -43,18 +43,29 @@ footer { min-height:250px; display:flex; align-items:center; justify-content:spa
 .manual-file-grid { grid-template-columns:1fr; gap:10px; padding:16px; }.manual-file { min-height:86px; flex-direction:row; align-items:center; justify-content:flex-start; gap:16px; padding:11px 48px 11px 13px; text-align:left; border-radius:14px; background:linear-gradient(100deg,rgba(20,16,48,.86),rgba(35,25,66,.57)); }.manual-file::before { content:""; position:absolute; left:0; top:15%; bottom:15%; width:3px; border-radius:0 3px 3px 0; background:var(--gold); box-shadow:0 0 15px rgba(255,208,139,.45); }.manual-file:hover { transform:translateX(5px); background:linear-gradient(100deg,rgba(43,32,79,.95),rgba(54,37,83,.65)); }.manual-file strong { margin:0; font-size:14px; }.manual-file small { display:block; margin-top:5px; font-size:10px; }.file-info { display:block; min-width:0; }.file-open { top:50%; right:17px; opacity:1; transform:translateY(-50%); }.manual-file:hover .file-open { transform:translate(4px,-50%); }.folder-shape { flex:none; width:57px; height:43px; margin:6px 0 0 4px; padding-bottom:5px; border-radius:5px; font-size:22px; }.folder-shape::before { top:-8px; width:27px; height:9px; border-radius:5px 5px 0 0; }.paper-preview { flex:none; width:48px; height:61px; gap:3px; padding:9px 5px 6px; }.paper-preview i { font-size:4px; letter-spacing:.45px; }.paper-preview b { min-height:15px; padding:2px; font-size:4px; }.paper-preview em { display:none; }.paper-preview u { height:1px; }.folder-file.violet::before,.document-file.blue::before { background:#b69aff; }.folder-file.gold::before,.document-file.orange::before { background:#ffc870; }.document-file.green::before { background:#92e4ab; }.document-file.pink::before { background:#f6a7d0; }
 @media (max-width:620px) { .manual-file-grid { grid-template-columns:1fr; gap:8px; padding:9px; }.manual-file { min-height:76px; gap:11px; padding:8px 40px 8px 10px; }.paper-preview { transform:none; margin:0; width:42px; height:54px; }.folder-shape { transform:none; margin:4px 0 0 3px; width:49px; height:37px; }.manual-file strong { font-size:12px; }.manual-file small { font-size:9px; } }
 @media (max-width:620px) { .footer-signature { min-height:150px; padding:25px 22px; }.exclusive-label { font-size:9px; letter-spacing:1px; }.lava-noteify { font-size:clamp(41px,15vw,52px); }.byline { font-size:11px; } }
+/* === MAKE YEAR TABS MATCH WIDTH OF THE 3 RESOURCE CARDS === */
+.year-tabs {
+  display: grid;                    /* switch from flex to grid */
+  grid-template-columns: repeat(5, 1fr);   /* 5 equal-width columns */
+  gap: 12px;                        /* slightly larger gap if needed */
+  padding: 43px 0 23px;
+  overflow: visible;                /* allow tabs to stretch fully */
+}
+
 .year-tab {
-  padding: 14px 28px;           /* taller + wider */
-  font: 700 15px var(--system); /* bolder + slightly larger */
-  border-radius: 14px;
-  min-width: 120px;             /* consistent length */
+  width: 100%;                      /* make each tab fill its grid column */
+  min-width: 0;                     /* allow shrinking if needed */
+  padding: 14px 0;                  /* remove fixed horizontal padding, let width do the work */
   text-align: center;
+  font: 700 15px var(--system);
+  border-radius: 14px;
   letter-spacing: 0.5px;
+  box-sizing: border-box;
 }
 
 .year-tab.active,
 .year-tab:hover {
-  padding: 14px 30px;           /* even more emphasis when active */
+  padding: 14px 0;
   font-size: 16px;
   box-shadow: 0 4px 14px rgba(199,188,255,.35);
 }
