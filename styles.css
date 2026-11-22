@@ -69,3 +69,12 @@ footer { min-height:250px; display:flex; align-items:center; justify-content:spa
   font-size: 16px;
   box-shadow: 0 4px 14px rgba(199,188,255,.35);
 }
+/* Hide the resource grid until a year is selected */
+#resourceGrid {
+  display: none;
+}
+
+/* Show it when the .show-resources class is added */
+#resourceGrid.show-resources {
+  display: grid;
+}
